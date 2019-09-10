@@ -1,0 +1,126 @@
+#server:
+#  port: 8000
+##  #服务中心页面地址
+#eureka:
+#  instance:
+#    hostname: localhost
+#  server:
+#    #    关闭自我保护模式（当一定时间内没有收到某个微服务实例的心跳时，不会注销这个微服务）
+#    enable-self-preservation: false
+#  client:
+#    #    eureka服务器访问地址
+#    service-url:
+#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+#    #    是否需要检索服务（检索服务是client端的事）
+#    fetch-registry: false
+#    #    是否向注册中心注册自己（因为它就是注册中心，负载均衡时需要用到）
+#    register-with-eureka: false
+#---
+#spring:
+#  application:
+#    name: eureka2
+#    profiles: server1
+#server:
+#  port: 8001
+#eureka:
+#  instance:
+#    hostname: server1
+#    prefer-ip-address: false
+#  client:
+#    service-url:
+#      defaultZone: http://server2:8002/eureka/,http://server3:8003/eureka/
+#---
+#spring:
+#  application:
+#    name: eureka2
+#    profiles: server2
+#server:
+#  port: 8002
+#eureka:
+#  instance:
+#    hostname: server2
+#    prefer-ip-address: false
+#  client:
+#    service-url:
+#      defaultZone: http://server1:8001/eureka/,http://server3:8003/eureka/
+#---
+#spring:
+#  application:
+#    name: eureka
+#    profiles: server3
+#server:
+#  port: 8003
+#eureka:
+#  instance:
+#    hostname: server3
+#    prefer-ip-address: false
+#  client:
+#    service-url:
+#      defaultZone: http://server1:8001/eureka/,http://server2:8002/eureka/
+
+spring:
+  application:
+    name: ad-eureka
+
+server:
+  port: 8000
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    # eureka.client.fetch-registry: 表示是否从 Eureka Server 获取注册信息，默认为true。如果这是一个单点的 Eureka Server，不需要同步其他节点的数据，设为false
+    fetch-registry: false
+    # eureka.client.register-with-eureka: 表示是否将自己注册到 Eureka Server, 默认为true。由于当前应用就是 Eureka Server, 因此设为 false
+    register-with-eureka: false
+    # 设置 Eureka Server 所在的地址，查询服务和注册服务都需要依赖这个地址
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+
+# 配置不同的 Profile, 需要注意, 如果要执行下面的 Profile, 需要将上面的配置注释掉
+
+---
+spring:
+  application:
+    name: ad-eureka
+  profiles: server1
+server:
+  port: 8000
+eureka:
+  instance:
+    hostname: server1
+    prefer-ip-address: false
+  client:
+    service-url:
+      defaultZone: http://server2:8001/eureka/,http://server3:8002/eureka/
+
+---
+spring:
+  application:
+    name: ad-eureka
+  profiles: server2
+server:
+  port: 8001
+eureka:
+  instance:
+    hostname: server2
+    prefer-ip-address: false
+  client:
+    service-url:
+      defaultZone: http://server1:8000/eureka/,http://server3:8002/eureka/
+
+---
+spring:
+  application:
+    name: ad-eureka
+  profiles: server3
+server:
+  port: 8002
+eureka:
+  instance:
+    hostname: server3
+    prefer-ip-address: false
+  client:
+    service-url:
+      defaultZone: http://server1:8000/eureka/,http://server2:8001/eureka/

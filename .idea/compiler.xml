@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ad-search" />
+        <module name="ad-gateway" />
+        <module name="ad-common" />
+        <module name="ls-ad-spring-cloud" />
+        <module name="ad-sponsor" />
+        <module name="eureka1" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ad-eureka" target="1.8" />
+      <module name="ad1-eureka" target="1.8" />
+      <module name="eureka" target="1.8" />
+      <module name="eureka2" target="1.8" />
+      <module name="gateway" target="1.8" />
+      <module name="ls-ad-service" target="1.8" />
+      <module name="lsadservice" target="1.8" />
+      <module name="sponsor" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ad-common" options="-parameters" />
+      <module name="ad-gateway" options="-parameters" />
+      <module name="ad-search" options="-parameters" />
+      <module name="ad-service" options="" />
+      <module name="ad-sponsor" options="-parameters" />
+      <module name="ad1-eureka" options="-parameters" />
+      <module name="eureka" options="-parameters" />
+      <module name="eureka1" options="-parameters" />
+      <module name="eureka2" options="-parameters" />
+      <module name="gateway" options="-parameters" />
+      <module name="ls-ad" options="" />
+      <module name="ls-ad-service" options="-parameters" />
+      <module name="lsadservice" options="" />
+      <module name="sponsor" options="-parameters" />
+    </option>
+  </component>
+</project>

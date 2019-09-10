@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="51c34962-85ee-43cf-908f-90807cc55646" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="AnnotationType" />
+        <option value="Singleton" />
+        <option value="FxmlFile" />
+        <option value="HTML File" />
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="D:\maven\m2" />
+        <option name="mavenHome" value="D:/maven/apache-maven-3.6.1" />
+        <option name="userSettingsFile" value="D:\maven\apache-maven-3.6.1\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="downloadSourcesAutomatically" value="true" />
+        <option name="importAutomatically" value="true" />
+        <option name="jdkForImporter" value="1.8" />
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1PcpljDpQJ8JICNEqCKbR1BUw5X" />
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ad-service/ad-search/src/main/java/com/ls/ad/index" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\ChromeCoreDownloads\ls-ad-spring-cloud\ad-service\ad-search\src\main\java\com\ls\ad\index" />
+      <recent name="D:\ChromeCoreDownloads\ls-ad-spring-cloud\ad-service\ad-search\src\main\java\com\ls\ad" />
+      <recent name="D:\ChromeCoreDownloads\ls-ad-spring-cloud\ad-service\ad-search\src\main\java\com\ls\ad\index\adunit" />
+      <recent name="D:\ChromeCoreDownloads\ls-ad-spring-cloud\ad-service\ad-sponsor\src\main\java\com\ls\ad\controller" />
+      <recent name="D:\ChromeCoreDownloads\ls-ad-spring-cloud\ad-service\ad-sponsor\src\main\java\com\ls\ad" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.ls.ad.controller" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.ls" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.ZuulGatewayApplication">
+    <configuration name="Eureka1Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ls.Eureka1Application" />
+      <module name="eureka1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ls.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SponsorApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ls.ad.SponsorApplication" />
+      <module name="ad-sponsor" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ls.ad.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ZuulGatewayApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ls.ZuulGatewayApplication" />
+      <module name="ad-gateway" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ls.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Eureka1Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="eureka1" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.ls.Eureka1Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ZuulGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="ad-gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.ls.ZuulGatewayApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Eureka1Application" />
+      <item itemvalue="Application.ZuulGatewayApplication" />
+      <item itemvalue="Application.SponsorApplication" />
+      <item itemvalue="Spring Boot.ZuulGatewayApplication" />
+      <item itemvalue="Spring Boot.Eureka1Application" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ZuulGatewayApplication" />
+        <item itemvalue="Application.Eureka1Application" />
+        <item itemvalue="Application.SponsorApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\acer\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="51c34962-85ee-43cf-908f-90807cc55646" name="Default Changelist" comment="" />
+      <created>1564541323620</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1564541323620</updated>
+      <workItem from="1566183394350" duration="6856000" />
+      <workItem from="1566196163122" duration="10690000" />
+      <workItem from="1566263501798" duration="4302000" />
+      <workItem from="1566526896694" duration="2770000" />
+      <workItem from="1566868575134" duration="3540000" />
+      <workItem from="1566954113615" duration="6240000" />
+      <workItem from="1566964134518" duration="10850000" />
+      <workItem from="1567040905114" duration="8538000" />
+      <workItem from="1567059781380" duration="9475000" />
+      <workItem from="1567127149147" duration="11299000" />
+      <workItem from="1567650521590" duration="2058000" />
+      <workItem from="1567677234290" duration="509000" />
+      <workItem from="1568097517263" duration="684000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+</project>
