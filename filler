@@ -1,0 +1,325 @@
+<template>
+  <div>
+    <!-- 面包屑导航区域 -->
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>用户管理</el-breadcrumb-item>
+      <el-breadcrumb-item>帐户管理</el-breadcrumb-item>
+    </el-breadcrumb>
+
+    <!-- 卡片视图区域 -->
+    <el-card>
+      <!-- 搜索与添加区域 -->
+      <el-row :gutter="20">
+        <el-col :span="7">
+          <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getAccountList">
+            <el-button slot="append" icon="el-icon-search" @click="getAccountList"></el-button>
+          </el-input>
+        </el-col>
+        <el-col :span="4">
+          <el-button type="primary" @click="addDialogVisible = true">添加用户</el-button>
+        </el-col>
+      </el-row>
+      <!-- 帐户列表区域 -->
+      <el-table :data="accountList" border stripe>
+        <el-table-column type="index" align="center" label="#"></el-table-column>
+        <el-table-column prop="accname" label="帐户名称" align="center"></el-table-column>
+        <el-table-column prop="mobile" label="联系电话" align="center"></el-table-column>
+        <el-table-column prop="status" label="状态" align="center">
+          <template slot-scope="scope">
+            <el-switch v-model="scope.row.status" @change="accountStatusChange(scope.row.status)"></el-switch>
+          </template>
+        </el-table-column>
+        <el-table-column prop="type" label="类型" align="center">
+          <template slot-scope="scope">{{scope.row.type == 1 ? '系统管理员' : '普通帐户'}}</template>
+        </el-table-column>
+        <el-table-column prop="createTime" label="创建时间" align="center">
+          <!-- <template slot-scope="scope">{{ scope.row.createTime | dateFormat }}</template> -->
+        </el-table-column>
+        <el-table-column prop="updateTime" label="更新时间" align="center">
+          <!-- <template slot-scope="scope">{{ scope.row.updateTime ? (scope.row.updateTime | dateFormat) : ''}}</template> -->
+        </el-table-column>
+        <el-table-column label="操作" align="center">
+          <template slot-scope="scope">
+            <el-tooltip effect="dark" content="编辑按钮" placement="top" :enterable="false">
+              <el-button
+                type="primary"
+                icon="el-icon-edit"
+                size="mini"
+                @click="showEditDialog(scope.row.accId)"
+              ></el-button>
+            </el-tooltip>
+            <el-tooltip effect="dark" content="删除按钮" placement="top" :enterable="false">
+              <el-button
+                type="danger"
+                icon="el-icon-delete"
+                size="mini"
+                @click="removeAccountById(scope.row.accId)"
+              ></el-button>
+            </el-tooltip>
+          </template>
+        </el-table-column>
+      </el-table>
+      <!-- 分页区域 -->
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="queryInfo.pageNum"
+        :page-sizes="[1, 2, 30, 50]"
+        :page-size="queryInfo.pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="totalPage"
+      ></el-pagination>
+      <!-- 添加帐户的对话框 -->
+      <el-dialog title="添加帐户" :visible.sync="addDialogVisible" width="50%" @close="addDialogClosed">
+        <!-- 添加帐户表单 -->
+        <el-form ref="addFormRef" :model="addForm" :rules="addFormRules" label-width="80px">
+          <!-- 帐户名称 -->
+          <el-form-item label="帐户名称" prop="accname">
+            <el-input v-model="addForm.accname"></el-input>
+          </el-form-item>
+          <!-- 密码 -->
+          <el-form-item label="密码" prop="accpassword">
+            <el-input v-model="addForm.accpassword" type="password"></el-input>
+          </el-form-item>
+          <!-- 联系电话 -->
+          <el-form-item label="联系电话" prop="mobile">
+            <el-input v-model="addForm.mobile"></el-input>
+          </el-form-item>
+          <!-- 类型 -->
+          <el-form-item label="类型" prop="type">
+            <template>
+              <el-select v-model="addForm.type" placeholder="请选择">
+                <el-option
+                  v-for="item in types"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                ></el-option>
+              </el-select>
+            </template>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="addDialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="addAccount">确 定</el-button>
+        </span>
+      </el-dialog>
+      <!-- 编辑帐户的对话框 -->
+      <el-dialog title="编辑帐户" :visible.sync="editDialogVisible" width="50%"  @close="editDialogClosed">
+        <el-form ref="editFormRef" :model="editForm" :rules="editFormRules" label-width="80px">
+          <el-form-item label="帐户名称">
+            <el-input v-model="editForm.accname" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="联系电话" prop="mobile">
+            <el-input v-model="editForm.mobile"></el-input>
+          </el-form-item>
+          <el-form-item label="类型" prop="type">
+            <template>
+              <el-select v-model="editForm.type" placeholder="请选择">
+                <el-option
+                  v-for="item in types"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                ></el-option>
+              </el-select>
+            </template>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="editDialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="editAccount">确 定</el-button>
+        </span>
+      </el-dialog>
+    </el-card>
+  </div>
+</template>
+
+<script>
+import {
+  getAccountList,
+  getAccountById,
+  updateStatus,
+  updateAccountById,
+  addAccount,
+  removeAccountById
+} from '../../../network/account/account'
+export default {
+  data() {
+    let checkMobile = (rule, value, cb) => {
+      const regMobile = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/
+      if (regMobile.test(value)) {
+        return cb()
+      }
+      cb(new Error('请输入合法的手机号'))
+    }
+
+    return {
+      queryInfo: {
+        query: '',
+        pageNum: 1,
+        pageSize: 2
+      },
+      accountList: [],
+      totalPage: 0,
+      addDialogVisible: false,
+      editDialogVisible: false,
+      addForm: {
+        accname: '',
+        accpassword: '',
+        mobile: '',
+        type: ''
+      },
+      editForm: {},
+      types: [
+        {
+          value: 1,
+          label: '系统管理员'
+        },
+        {
+          value: 2,
+          label: '普通帐户'
+        }
+      ],
+      addFormRules: {
+        accname: [
+          { required: true, message: '请输入帐户名称', trigger: 'blur' },
+          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
+        ],
+        accpassword: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
+        ],
+        mobile: [
+          { required: true, message: '请输入联系电话', trigger: 'blur' },
+          { validator: checkMobile, trigger: 'blur' }
+        ],
+        type: [{ required: true, message: '请选择类型', trigger: 'change' }]
+      },
+      editFormRules: {
+        mobile: [
+          { required: true, message: '请输入联系电话', trigger: 'blur' },
+          { validator: checkMobile, trigger: 'blur' }
+        ],
+        type: [{ required: true, message: '请选择类型', trigger: 'change' }]
+      }
+    }
+  },
+  methods: {
+    async getAccountList() {
+      const { data: res } = await getAccountList(this.queryInfo)
+      // console.log("+++++",res)
+      if (res.code !== 200) return this.$message.error(res.msg)
+      // console.log(res.data)
+      this.accountList = res.data.rows
+      // console.log(this.accountList)
+      this.totalPage = res.data.total
+    },
+    // 监听每页显示条数参数（pageSize）发生改变时触发
+    handleSizeChange(newSize) {
+      console.log("newSize: ",newSize)
+      this.queryInfo.pageSize = newSize
+      this.getAccountList()
+    },
+    // 监听当前页码参数（pageNum）发生改变时触发
+    handleCurrentChange(newPage) {
+      console.log("newPage: ",newPage)
+      this.queryInfo.pageNum = newPage
+      this.getAccountList()
+    },
+    // 更改帐户状态按钮
+    async accountStatusChange(status) {
+      // console.log(accountInfo)
+      // const {data:res} = await updateStatus(status)
+      // console.log(res)
+    },
+    // 监听添加帐户对话框的关闭事件
+    addDialogClosed() {
+      this.$refs.addFormRef.resetFields()
+    },
+    // 添加帐户按钮
+    addAccount() {
+      this.$refs.addFormRef.validate(async valid => {
+        console.log(valid)
+        if (!valid) return
+        // 调用后台添加接口
+        const { data: res } = await addAccount(this.addForm)
+        if (res.code !== 201)  return this.$message.error(res.msg)
+
+        this.$message.success(res.msg)
+        // 隐藏添加帐户的对话框
+        this.addDialogVisible = false
+        // 重新获取帐户列表数据
+        this.getAccountList()
+      })
+    },
+    // 显示编辑帐户的对话框
+    async showEditDialog(id) {
+      // console.log(id)
+      const { data: res } = await getAccountById(id)
+      if (res.code !== 200) return this.$message.error(res.msg)
+      console.log(res.data)
+      this.editForm = res.data
+      this.editDialogVisible = true
+    },
+    // 监听添加帐户对话框的关闭事件
+    editDialogClosed() {
+      this.$refs.editFormRef.resetFields()
+    },
+    // 编辑帐户按钮
+    editAccount() {
+      this.$refs.editFormRef.validate(async valid => {
+        console.log(valid)
+        if (!valid) return
+        // 调用后台添加接口
+        const { data: res } = await updateAccountById({
+          id: this.editForm.id,
+          mobile: this.editForm.mobile,
+          type: this.editForm.type
+        })
+        if (res.code !== 202)  return this.$message.error(res.msg)
+
+        this.$message.success(res.msg)
+        // 隐藏编辑帐户的对话框
+        this.editDialogVisible = false
+        // 重新获取帐户列表数据
+        this.getAccountList()
+      })
+    },
+    // 删除帐户按钮
+    async removeAccountById(id) {
+      // 弹框确认
+      const result = await this.$confirm(
+        '此操作将永久删除该帐户, 是否继续?',
+        '提示',
+        {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).catch(err => err)
+
+      if (result !== 'confirm') {
+        // 点击取消
+       return this.$message.info('已取消删除')
+      }
+
+      const {data: res} = await removeAccountById()
+
+      if(res.code !== 204) return this.$message.error(res.msg)
+
+      this.$message.success(res.msg)
+
+      this.getAccountList()
+
+    }
+  },
+  created() {
+    this.getAccountList()
+  }
+}
+</script>
+
+<style lang="less" scoped>
+</style>
